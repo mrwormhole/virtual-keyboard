@@ -13,12 +13,12 @@ gcc -Wall keyboard.c -o keyboard `pkg-config --cflags --libs gtk+-3.0`
 
 ### TODOs
 
-- [] Solve the buffering issue in the input text area
-- [] Port it to latest GTK 4.12.4
-- [] Make it cross-platform compilable and ensure it works on windows 
-- [] Complete PoC for thai to look like [this](https://www.branah.com/thai)
+- [] Design the android keyboard layout for Thai
+- [] Solve the buffering issue in the input text area 
+- [] Complete PoC for thai to look like [this](https://www.branah.com/thai) for layout and key binding wise
 - [] Ensure additional keyboard bindings mirror the different alphabet like in the PoC example
 - [] Write all tests for ASCII/unicodes to confirm the text that was inputted
+- [] Port it to latest GTK 4.12.4
 - [] (OPTIONAL) Investigate touch-screen support
 - [] (OPTIONAL) Add more language scripts (korean/japanese/mandarin etc...)
 
