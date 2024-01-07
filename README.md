@@ -13,8 +13,7 @@ gcc -Wall keyboard.c -o keyboard `pkg-config --cflags --libs gtk+-3.0`
 
 ### TODOs
 
-- [ ] Design the android keyboard layout for Thai
-- [ ] Solve the buffering issue in the input text area 
+- [ ] Solve the buffering issue in the input text area over 18 chars
 - [ ] Complete PoC for thai to look like [this](https://www.branah.com/thai) for layout and key binding wise
 - [ ] Ensure additional keyboard bindings mirror the different alphabet like in the PoC example
 - [ ] Write all tests for ASCII/unicodes to confirm the text that was inputted
