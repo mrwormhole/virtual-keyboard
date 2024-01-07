@@ -5,7 +5,7 @@ This is currently at PoC phase but I have plans to make it better with additiona
 
 ### How to compile 
 
-## Linux
+#### Linux
 
 ```sh
 gcc -Wall keyboard.c -o keyboard `pkg-config --cflags --libs gtk+-3.0`
