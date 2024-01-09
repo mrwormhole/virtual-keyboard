@@ -14,8 +14,8 @@ static const gchar letters[18] = "QWERTYASDFGHZXCVBN";
 static gchar single_char[2] = {'A', '\0'};
 
 static void button_clicked(GtkWidget *button, gpointer *user_data) {
-    gpointer *button_index = g_hash_table_lookup((GHashTable*)user_data[0], button);
-    gint index = GPOINTER_TO_INT(*button_index);
+    const gpointer *button_index = g_hash_table_lookup((GHashTable*)user_data[0], button);
+    const gint index = GPOINTER_TO_INT(*button_index);
     g_print("Button index %i\n", index);
     single_char[0] = letters[index];
     gchar *string = g_strdup_printf("%s%s", gtk_entry_get_text(GTK_ENTRY(user_data[1])), single_char);
