@@ -13,7 +13,7 @@ static const gchar letters[18] = "QWERTYASDFGHZXCVBN";
 //Need single chars as strings.
 static gchar single_char[2] = {'A', '\0'};
 
-static void button_clicked(GtkWidget *button, gpointer *user_data) {
+static void button_clicked(const GtkWidget *button, const gpointer *user_data) {
     const gpointer *button_index = g_hash_table_lookup((GHashTable*)user_data[0], button);
     const gint index = GPOINTER_TO_INT(*button_index);
     g_print("Button index %i\n", index);
