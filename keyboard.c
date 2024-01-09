@@ -1,32 +1,25 @@
-/*
-   gcc -Wall keyboard1.c -o keyboard `pkg-config --cflags --libs gtk+-3.0`
-   Tested with GTK3.24 on Arch Linux 6.6.7-arch1-1  
-*/
-#include<gtk/gtk.h>
+#include <gtk/gtk.h>
 
 typedef struct {
     gint id;
     GtkWidget *button;
 } Key;
 
-static const gchar letters[18] = "QWERTYASDFGHZXCVBN";
-//Need single chars as strings.
-static gchar single_char[2] = {'A', '\0'};
+static const char letters[18] = "QWERTYASDFGHZXCVBN";
+static char single_char[2] = "A"; // Need single char as string.
 
-static void button_clicked(const GtkWidget *button, const gpointer *user_data) {
-    const gpointer *button_index = g_hash_table_lookup((GHashTable*)user_data[0], button);
-    const gint index = GPOINTER_TO_INT(*button_index);
+static void button_clicked(const GtkWidget *button, const void **user_data) {
+    const void *button_index = g_hash_table_lookup((GHashTable *)user_data[0], button);
+    const int index = *((int *)button_index);
     g_print("Button index %i\n", index);
     single_char[0] = letters[index];
-    gchar *string = g_strdup_printf("%s%s", gtk_entry_get_text(GTK_ENTRY(user_data[1])), single_char);
+    char *string = g_strdup_printf("%s%s", gtk_entry_get_text(GTK_ENTRY(user_data[1])), single_char);
     gtk_entry_set_text(GTK_ENTRY(user_data[1]), string);
     g_free(string);
 }
 
 int main(int argc, char *argv[]) {
     gtk_init (&argc, &argv);
-    gint i = 0;
-    gint j = 0;
     
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(window), "Keyboard");
@@ -37,33 +30,33 @@ int main(int argc, char *argv[]) {
     GtkWidget *entry = gtk_entry_new();
     gtk_widget_set_hexpand(entry, TRUE);
 
-    //Save buttons in an array.
+    // Save buttons in an array.
     Key k1;
     GArray *keyboard = g_array_new(FALSE, FALSE, sizeof(Key));    
-    for(i=0; i<18; i++) {
+    for(int i = 0; i < sizeof(letters) / sizeof(char); i++) {
         single_char[0] = letters[i];
         k1.id = i;
         k1.button = gtk_button_new_with_label(single_char);
         g_array_append_val(keyboard, k1);
     }   
  
-    //A hash table to look up array index values.
+    // Hash table to look up array index values.
     Key *p1 = NULL;
     GHashTable *hash_table=g_hash_table_new(NULL, NULL);
-    for(i=0; i<18; i++) {
+    for(int i =0 ; i < sizeof(letters) / sizeof(char); i++) {
         p1 = &g_array_index(keyboard, Key, i);
         g_hash_table_insert(hash_table, p1->button, &(p1->id));
     }
 
-    gpointer user_data[2] = {hash_table, entry};
+    void *user_data[2] = {hash_table, entry};
     GtkWidget *grid1=gtk_grid_new();
-    for(i=0; i<3; i++) {
-        for(j=0; j<6; j++) {
-            p1 = &g_array_index(keyboard, Key, i*6+j);
+    for(int i = 0; i < 3; i++) {
+        for(int j = 0; j < 6; j++) {
+            p1 = &g_array_index(keyboard, Key, i * 6 + j);
             gtk_grid_attach(GTK_GRID(grid1), p1->button, j, i, 1, 1);
             g_signal_connect(p1->button, "clicked", G_CALLBACK(button_clicked), user_data);
         }
-    } 
+    }
 
     GtkWidget *scroll = gtk_scrolled_window_new(NULL, NULL);
     gtk_widget_set_vexpand(scroll, TRUE);
