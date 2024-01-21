@@ -9,12 +9,12 @@ This is currently at PoC phase but I have plans to make it better with additiona
 
 ### How to compile
 
-You need C17 and CMake to compile on your platform, you also need to have GTK in your system for header files from `--cflags` and shared library fom `--libs`.
+You need C compiler to compile on your platform, you also need to have GTK in your system.
 
 #### Linux
 
 ```shell
-gcc -Wall keyboard.c -o keyboard `pkg-config --cflags --libs gtk+-3.0`
+clang -Wall -Wextra -pedantic -std=c17 keyboard.c -o keyboard `pkg-config --cflags --libs gtk+-3.0`
 ```
 
 or with cmake
@@ -27,11 +27,10 @@ make && ./virtual-keyboard
 
 ### TODOs
 
-- [ ] Solve the buffering issue in the input text area over 18 chars
+- [ ] Solve the text area issue when text area is filled, clicking a button goes back to the start
 - [ ] Complete PoC for thai to look like [this](https://www.branah.com/thai) for layout and key binding wise
 - [ ] Ensure additional keyboard bindings mirror the different alphabet like in the PoC example
-- [ ] Write all tests for ASCII/unicodes to confirm the text that was inputted
+- [ ] Write all tests for unicodes to confirm the text that was inputted have correct unicode
 - [ ] Port it to latest GTK 4.12.4
-- [ ] (OPTIONAL) Release executable binaries through Github
-- [ ] (OPTIONAL) Add more language scripts (korean/japanese/mandarin etc...)
+- [ ] (OPTIONAL) Release executable binaries through GH releases
 

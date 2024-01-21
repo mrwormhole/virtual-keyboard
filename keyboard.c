@@ -1,3 +1,5 @@
+#include <stddef.h>
+
 #include <gtk/gtk.h>
 
 typedef struct {
@@ -7,6 +9,15 @@ typedef struct {
 
 static const char letters[18] = "QWERTYASDFGHZXCVBN";
 static char single_char[2] = "A"; // Need single char as string.
+
+// ANSI / ISO depends on the language of the keyboard.
+// US English, Korean, Taiwanese, Thai, Mandarin are ANSI. Everything else is ISO, including International English and UK English
+static const char* ansi_english_letters[] = {
+    "`1234567890-=",
+    "QWERTYUIOP[]\\",
+    "ASDFGHJKL;'",
+    "ZXCVBNM,./",
+};
 
 static void button_clicked(const GtkWidget *button, const void **user_data) {
     const void *button_index = g_hash_table_lookup((GHashTable *)user_data[0], button);
@@ -19,11 +30,21 @@ static void button_clicked(const GtkWidget *button, const void **user_data) {
 }
 
 int main(int argc, char *argv[]) {
-    gtk_init (&argc, &argv);
-    
+    gtk_init(&argc, &argv);
+
+    for (size_t i = 0; i < sizeof(ansi_english_letters) / sizeof(ansi_english_letters[0]); ++i) {
+        printf("Element %zu: ", i);
+
+        for (size_t j = 0; ansi_english_letters[i][j] != '\0'; ++j) {
+            printf("%c ", ansi_english_letters[i][j]);
+        }
+
+        printf("\n");
+    }
+
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(window), "Keyboard");
-    gtk_window_set_default_size(GTK_WINDOW(window), 400, 200);
+    gtk_window_set_default_size(GTK_WINDOW(window), 800, 300);
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
     g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
 
@@ -32,29 +53,34 @@ int main(int argc, char *argv[]) {
 
     // Save buttons in an array.
     Key k1;
-    GArray *keyboard = g_array_new(FALSE, FALSE, sizeof(Key));    
-    for(int i = 0; i < sizeof(letters) / sizeof(char); i++) {
+    GArray *keyboard = g_array_new(FALSE, FALSE, sizeof(Key));
+    for (size_t i = 0; i < sizeof(letters) / sizeof(char); i++) {
         single_char[0] = letters[i];
         k1.id = i;
         k1.button = gtk_button_new_with_label(single_char);
         g_array_append_val(keyboard, k1);
-    }   
- 
+    }
+
     // Hash table to look up array index values.
     Key *p1 = NULL;
-    GHashTable *hash_table=g_hash_table_new(NULL, NULL);
-    for(int i =0 ; i < sizeof(letters) / sizeof(char); i++) {
+    GHashTable *hash_table = g_hash_table_new(NULL, NULL);
+    for (size_t i = 0; i < sizeof(letters) / sizeof(char); i++) {
         p1 = &g_array_index(keyboard, Key, i);
         g_hash_table_insert(hash_table, p1->button, &(p1->id));
     }
 
     void *user_data[2] = {hash_table, entry};
-    GtkWidget *grid1=gtk_grid_new();
-    for(int i = 0; i < 3; i++) {
-        for(int j = 0; j < 6; j++) {
-            p1 = &g_array_index(keyboard, Key, i * 6 + j);
-            gtk_grid_attach(GTK_GRID(grid1), p1->button, j, i, 1, 1);
-            g_signal_connect(p1->button, "clicked", G_CALLBACK(button_clicked), user_data);
+    GtkWidget *grid1 = gtk_grid_new();
+    const int rows = 3;
+    const int cols = 6;
+    for (size_t i = 0; i < rows; i++) {
+        for (size_t j = 0; j < cols; j++) {
+            const size_t index = i * cols + j;
+            if (index < sizeof(letters) / sizeof(char)) {
+                p1 = &g_array_index(keyboard, Key, index);
+                gtk_grid_attach(GTK_GRID(grid1), p1->button, j, i, 1, 1);
+                g_signal_connect(p1->button, "clicked", G_CALLBACK(button_clicked), user_data);
+            }
         }
     }
 
@@ -82,4 +108,4 @@ int main(int argc, char *argv[]) {
     g_array_free(keyboard, TRUE);
 
     return 0;
- } 
+}
