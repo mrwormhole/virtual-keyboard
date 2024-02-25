@@ -1,7 +1,0 @@
----
-BasedOnStyle: Google
-ColumnLimit: 180
-Language: Cpp
-IndentWidth: 4
-
-...

@@ -1,36 +1,27 @@
 # virtual-keyboard
 
-I have realized I need a some sort of virtual keyboard to continue on my private language lessons so that I can type different alphabet(อักษรไทย) faster with my latin keyboard. 
-This is currently at PoC phase but I have plans to make it better with additional !reliable! C tooling and dead simple non-fancy UI.
+I have realized I need a some sort of virtual keyboard so that I can type different alphabets(such as Thai or Turkish) faster with UK keyboard layout.
 
 ### Dependencies
 
-- GTK3
+- Python (>=3.11)
+- GTK 4 (you can see what you need to download on [here](https://gnome.pages.gitlab.gnome.org/pygobject/getting_started.html))
 
-### How to compile
-
-You need C compiler to compile on your platform, you also need to have GTK in your system.
+Note: please do not do global system installation of poetry defined dependencies through pip, poetry already installs it!
 
 #### Linux
 
 ```shell
-clang -Wall -Wextra -pedantic -std=c17 keyboard.c -o keyboard `pkg-config --cflags --libs gtk+-3.0`
-```
-
-or with cmake
-
-```shell
-mkdir build && cd ./build
-cmake ..
-make && ./virtual-keyboard
+poetry install
+python ./keyboard.py
 ```
 
 ### TODOs
 
-- [ ] Solve the text area issue when text area is filled, clicking a button goes back to the start
-- [ ] Complete PoC for thai to look like [this](https://www.branah.com/thai) for layout and key binding wise
-- [ ] Ensure additional keyboard bindings mirror the different alphabet like in the PoC example
+- [X] Solve the text area issue when text area is filled, clicking a button goes back to the start
+- [ ] Design a CSS layout for buttons label size and do the layouts for thai/turkish
+- [ ] Implement hotkey bindings from UK keyboard to other 2 layouts
 - [ ] Write all tests for unicodes to confirm the text that was inputted have correct unicode
-- [ ] Port it to latest GTK 4.12.4
+- [X] Port it to GTK 4
 - [ ] (OPTIONAL) Release executable binaries through GH releases
 

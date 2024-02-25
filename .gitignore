@@ -1,5 +1,3 @@
-keyboard
-cmake-build-debug/
-build/
+venv/
 .idea/
 .vscode/
