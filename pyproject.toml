@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "virtual-keyboard"
+version = "0.0.1"
+description = "on-screen keyboard to help typing faster"
+authors = ["F. Talha Altinel <talhaaltinel@hotmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+PyGObject = "^3.46.0"
+PyGObject-stubs = "^2.10.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
