@@ -11,6 +11,12 @@ python = "^3.11"
 PyGObject = "^3.46.0"
 PyGObject-stubs = "^2.10.0"
 
+[tool.ruff]
+line-length = 180
+
+[tool.ruff.lint]
+ignore = ["E402"]
+
 
 [build-system]
 requires = ["poetry-core"]

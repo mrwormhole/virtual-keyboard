@@ -7,24 +7,20 @@ from gi.repository import GLib, Gtk
 
 CHARACTERS: dict[str, list[list[str]]] = {
     "UK": [
-        ['1', '2', '3', '4', '5'],
-        ['q', 'w', 'e', 'r', 't'],
-        ['ก', 's', 'd', 'f', 'g', 'g'],
-        ['z', 'x', 'c', 'v', 'b'],
+        ["1", "2", "3", "4", "5"],
+        ["q", "w", "e", "r", "t"],
+        ["ก", "s", "d", "f", "g", "g"],
+        ["z", "x", "c", "v", "b"],
     ],
-    "TH": [
-
-    ],
-    "TR": [
-
-    ],
+    "TH": [],
+    "TR": [],
 }
 
 
 class KeyboardApp(Gtk.Application):
     def __init__(self):
         super().__init__(application_id="com.mrwormhole.virtual-keyboard")
-        GLib.set_application_name('Virtual Keyboard')
+        GLib.set_application_name("Virtual Keyboard")
         self.textarea: Gtk.Entry = Gtk.Entry(hexpand=True)
 
     def do_activate(self):
@@ -47,7 +43,7 @@ class KeyboardApp(Gtk.Application):
         # Create a grid to hold the buttons
         grid: Gtk.Grid = Gtk.Grid(row_spacing=5, column_spacing=5, focusable=False)
         container.append(grid)
-        '''
+        """
         we should support these characters below first
         // https://www.branah.com/thai
         // https://www.branah.com/turkish
@@ -57,7 +53,7 @@ class KeyboardApp(Gtk.Application):
             "ASDFGHJKL;'",
             "ZXCVBNM,./",
         };
-        '''
+        """
 
         # Create buttons for each character
         characters_uk = CHARACTERS["UK"]
