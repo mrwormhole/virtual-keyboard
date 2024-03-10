@@ -53,4 +53,4 @@ dev = ["PyGObject", "black", "codespell", "isort", "pre-commit", "ruff"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "66d83ac493847e26b013ee9232f46044f421a2da1889c431846830a52c174deb"
+content-hash = "dc3685375eea250b592fdad4e91a07393f0ca885a1286ce3c30446560ff6e7a3"
