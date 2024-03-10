@@ -7,14 +7,25 @@ from gi.repository import GLib, Gtk
 
 CHARACTERS: dict[str, list[list[str]]] = {
     "UK": [
-        ["1", "2", "3", "4", "5"],
-        ["q", "w", "e", "r", "t"],
-        ["ก", "s", "d", "f", "g", "g"],
-        ["z", "x", "c", "v", "b"],
+        ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "← Backspace"],
+        ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "\\"],
+        ["a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "↵ Enter"],
+        ["⇧", "\\", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "Space"],
     ],
-    "TH": [],
-    "TR": [],
+    "TH": [
+        ["ๅ", "/", "-", "ภ", "ถ", "ุ", "ึ", "ค", "ต", "จ", "ข", "ช"]
+    ],
+    # "TR": [],
 }
+
+# style_provider: Gtk.CssProvider = Gtk.CssProvider()
+# style_provider.load_from_path("style.css")
+# context: Gtk.StyleContext = Gtk.StyleContext()
+# context.add_provider_for_display(
+#     Gdk.Display.get_default(),
+#     style_provider,
+#     Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+# )
 
 
 class KeyboardApp(Gtk.Application):
@@ -56,11 +67,18 @@ class KeyboardApp(Gtk.Application):
         """
 
         # Create buttons for each character
-        characters_uk = CHARACTERS["UK"]
+        characters_uk = CHARACTERS["TH"]
         for i in range(len(characters_uk)):
             for j in range(len(characters_uk[i])):
-                button: Gtk.Button = Gtk.Button(label=characters_uk[i][j])
+                label: Gtk.Label = Gtk.Label(label=characters_uk[i][j])
+                # label.get_style_context().add_class("my-custom-label") DEPRECATED
+
+                button: Gtk.Button = Gtk.Button()
+                button.set_child(label)
                 button.connect("clicked", self.on_button_clicked, characters_uk[i][j])
+                if characters_uk[i][j] == "↵ Enter":
+                    grid.attach(button, j, i, 2, 1)
+                    continue
                 grid.attach(button, j, i, 1, 1)
 
         window.present()
