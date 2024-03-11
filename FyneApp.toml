@@ -1,0 +1,8 @@
+Website = "https://github.com/mrwormhole/virtual-keyboard"
+
+[Details]
+Icon = "icon.png"
+Name = "Virtual Keyboard"
+ID = "com.mrwormhole.virtualkeyboard"
+Version = "0.0.1"
+Build = 0
