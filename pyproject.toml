@@ -7,7 +7,7 @@ license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.12"
 PyGObject = "^3.46.0"
 
 [tool.ruff]
@@ -19,6 +19,7 @@ ignore = ["E402"]
 
 [tool.poetry.group.dev.dependencies]
 pygobject-stubs = "^2.10.0"
+pytest = "^8.2.0"
 
 [build-system]
 requires = ["poetry-core"]
