@@ -39,5 +39,5 @@ jobs:
 
     - name: Run Pytest
       run: |
-        poetry install --with dev --no-root
-        poetry run coverage run -m pytest -v && poetry coverage report -m
+        poetry install --with dev
+        poetry run coverage run -m pytest -v && poetry run coverage report -m
