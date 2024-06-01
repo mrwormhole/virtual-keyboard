@@ -26,6 +26,10 @@ class KeyboardApp(Gtk.Application):
         self.enabled_shift: bool = False
 
     def on_key_pressed(self, event_controller: Gtk.EventControllerKey, keyval: int, keycode: int, state: Gdk.ModifierType) -> bool:
+        if keyval == Gdk.KEY_Escape:
+            self.window.close()
+            return True
+
         if keyval == Gdk.KEY_Return:
             return True
 
@@ -96,25 +100,25 @@ class KeyboardApp(Gtk.Application):
         self.enabled_shift = False
 
     def do_activate(self):
-        window: Gtk.ApplicationWindow = Gtk.ApplicationWindow(application=self, title="Virtual Keyboard")
-        window.set_default_size(400, 300)
+        self.window: Gtk.ApplicationWindow = Gtk.ApplicationWindow(application=self, title="Virtual Keyboard")
+        self.window.set_default_size(400, 300)
 
         controller: Gtk.EventController = Gtk.EventControllerKey.new()
         controller.connect("key-pressed", self.on_key_pressed)
         controller.set_propagation_phase(Gtk.PropagationPhase.CAPTURE)
-        window.add_controller(controller)
+        self.window.add_controller(controller)
 
         # Create header bar
         header_bar = Gtk.HeaderBar()
-        window.set_titlebar(header_bar)
+        self.window.set_titlebar(header_bar)
 
         # Create 2 actions
         action: Gio.SimpleAction = Gio.SimpleAction.new("select-TH", None)
         action.connect("activate", self.change_language)
-        window.add_action(action)
+        self.window.add_action(action)
         action: Gio.SimpleAction = Gio.SimpleAction.new("select-TR", None)
         action.connect("activate", self.change_language)
-        window.add_action(action)
+        self.window.add_action(action)
 
         # Create a new menu, containing actions
         menu: Gio.Menu = Gio.Menu.new()
@@ -139,7 +143,7 @@ class KeyboardApp(Gtk.Application):
         container.set_margin_end(20)
         container.set_margin_top(10)
         container.set_margin_bottom(10)
-        window.set_child(container)
+        self.window.set_child(container)
 
         # Box to hold the textarea
         textarea_container: Gtk.Box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
@@ -150,7 +154,7 @@ class KeyboardApp(Gtk.Application):
         container.append(self.grid)
 
         self.generate_grid_buttons(self.current_langauge)
-        window.present()
+        self.window.present()
 
     def on_button_clicked(self, button: Gtk.Button, text: str):
         if text == "↵ Enter":
