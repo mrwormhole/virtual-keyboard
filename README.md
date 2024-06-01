@@ -1,6 +1,8 @@
 # virtual-keyboard
 
-I have realized I need a some sort of virtual keyboard so that I can type different alphabets(such as Thai or Turkish) faster with UK keyboard layout.
+I have realized I need some sort of virtual keyboard so that I can type different alphabets faster with UK keyboard layout.
+
+I have been inspired by [this website](https://www.branah.com/) in my trilingual language journey.
 
 ![screenshot](./screenshot.png)
 
@@ -13,9 +15,7 @@ I have realized I need a some sort of virtual keyboard so that I can type differ
 - Python (>=3.12)
 - GTK 4 (you can see what you need to download on [here](https://gnome.pages.gitlab.gnome.org/pygobject/getting_started.html))
 
-Note: please do not do global system installation of python dependencies through pip, poetry already installs it!
-
-#### Linux
+Note: please don't do global system installation of python dependencies through pip, poetry can install it safely for you
 
 ```shell
 poetry install
