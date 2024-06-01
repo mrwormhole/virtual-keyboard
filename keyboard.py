@@ -62,6 +62,7 @@ class KeyboardApp(Gtk.Application):
         language: str = action_name.split("-")[1]
         self.generate_grid_buttons(language)
         self.current_langauge = language
+        self.enabled_shift = False
 
     def do_activate(self):
         window: Gtk.ApplicationWindow = Gtk.ApplicationWindow(application=self, title="Virtual Keyboard")
