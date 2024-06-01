@@ -16,8 +16,7 @@ class KeyboardApp(Gtk.Application):
 
         self.css_provider = Gtk.CssProvider()
         self.css_provider.load_from_path("style.css")
-        Gtk.StyleContext.add_provider_for_display(Gdk.Display.get_default(), self.css_provider,
-                                                  Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        Gtk.StyleContext.add_provider_for_display(Gdk.Display.get_default(), self.css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
         self.textarea: Gtk.Entry = Gtk.Entry(hexpand=True)  # Multi-line support for "↵ Enter" requires TextView
         self.textarea.add_css_class("input-box")
@@ -26,8 +25,7 @@ class KeyboardApp(Gtk.Application):
         self.current_langauge: str = "TH"
         self.enabled_shift: bool = False
 
-    def on_key_pressed(self, event_controller: Gtk.EventControllerKey, keyval: int, keycode: int,
-                       state: Gdk.ModifierType):
+    def on_key_pressed(self, event_controller: Gtk.EventControllerKey, keyval: int, keycode: int, state: Gdk.ModifierType):
         print(f"{type(event_controller)} {type(keyval)} {type(keycode)} {type(state)}")
         print("Key pressed: " + str(keycode) + " " + str(keyval) + " " + Gdk.keyval_name(keyval))
 
