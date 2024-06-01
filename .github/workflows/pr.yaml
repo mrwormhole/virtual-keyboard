@@ -21,6 +21,10 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
+    - name: Install GTK deps
+      run: |
+        apt install libgirepository1.0-dev -y
+
     - name: Install Poetry and Ruff
       run: |
         python -m pip install --upgrade pip
