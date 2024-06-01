@@ -18,6 +18,7 @@ I have been inspired by [this website](https://www.branah.com/) in my trilingual
 Note: please don't do global system installation of python dependencies through pip, poetry can install it safely for you
 
 ```shell
+poetry shell
 poetry install
 python ./keyboard.py
 ```
