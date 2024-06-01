@@ -6,7 +6,7 @@ import html
 gi.require_version("Gtk", "4.0")
 from gi.repository import GLib, Gtk, Gdk, Gio
 
-from characters import CHARS, ACTIONABLE_CHARS
+from characters import CHARS, ACTIONABLE_CHARS, find_mapped_char
 
 
 class KeyboardApp(Gtk.Application):
@@ -25,9 +25,40 @@ class KeyboardApp(Gtk.Application):
         self.current_langauge: str = "TH"
         self.enabled_shift: bool = False
 
-    def on_key_pressed(self, event_controller: Gtk.EventControllerKey, keyval: int, keycode: int, state: Gdk.ModifierType):
-        print(f"{type(event_controller)} {type(keyval)} {type(keycode)} {type(state)}")
-        print("Key pressed: " + str(keycode) + " " + str(keyval) + " " + Gdk.keyval_name(keyval))
+    def on_key_pressed(self, event_controller: Gtk.EventControllerKey, keyval: int, keycode: int, state: Gdk.ModifierType) -> bool:
+        if keyval == Gdk.KEY_Return:
+            return True
+
+        if keyval == Gdk.KEY_Shift_L or keyval == Gdk.KEY_Shift_R:
+            if self.current_langauge.endswith("_"):
+                self.current_langauge = self.current_langauge.rstrip("_")
+            else:
+                self.current_langauge = f"{self.current_langauge}_"
+            self.enabled_shift = not self.enabled_shift
+            self.generate_grid_buttons(self.current_langauge)
+            return True
+
+        cursor_position: int = self.textarea.get_position()
+        if keyval == Gdk.KEY_BackSpace and cursor_position != 0:
+            buff: Gtk.EntryBuffer = self.textarea.get_buffer()
+            buff.delete_text(cursor_position - 1, 1)
+            return True
+
+        if keyval == Gdk.KEY_space:
+            buff: Gtk.EntryBuffer = self.textarea.get_buffer()
+            buff.insert_text(cursor_position, " ", -1)
+            self.textarea.set_position(cursor_position + 1)
+            return True
+
+        char = chr(Gdk.keyval_to_unicode(keyval))
+        mapped_char = find_mapped_char(char, self.current_langauge)
+        if mapped_char != "":
+            buff: Gtk.EntryBuffer = self.textarea.get_buffer()
+            buff.insert_text(cursor_position, mapped_char, -1)
+            self.textarea.set_position(cursor_position + 1)
+            return True
+
+        return False
 
     def generate_grid_buttons(self, language: str):
         default_chars = CHARS["UK"]
@@ -38,7 +69,7 @@ class KeyboardApp(Gtk.Application):
                     self.grid.remove(widget)
 
                 char = default_chars[i][j]
-                markup = f"<span foreground='grey' size='125%'>{char}</span>"
+                markup = f"<span foreground='grey' size='125%'>{html.escape(char)}</span>"
                 mapped_char = CHARS[language][i][j]
                 if mapped_char not in ACTIONABLE_CHARS:
                     markup += f"    <span foreground='#E0115F' size='250%'> {html.escape(mapped_char)}</span>"
@@ -68,11 +99,12 @@ class KeyboardApp(Gtk.Application):
         window: Gtk.ApplicationWindow = Gtk.ApplicationWindow(application=self, title="Virtual Keyboard")
         window.set_default_size(400, 300)
 
-        # event_controller_key: Gtk.EventController = Gtk.EventControllerKey.new()
-        # event_controller_key.connect("key-pressed", self.on_key_pressed)
-        # window.add_controller(event_controller_key)
-        # self.textarea.add_controller(event_controller_key)
+        controller: Gtk.EventController = Gtk.EventControllerKey.new()
+        controller.connect("key-pressed", self.on_key_pressed)
+        controller.set_propagation_phase(Gtk.PropagationPhase.CAPTURE)
+        window.add_controller(controller)
 
+        # Create header bar
         header_bar = Gtk.HeaderBar()
         window.set_titlebar(header_bar)
 
@@ -134,9 +166,9 @@ class KeyboardApp(Gtk.Application):
             return
 
         cursor_position: int = self.textarea.get_position()
-        if text == "← Backspace":
+        if text == "← Backspace" and cursor_position != 0:
             buff: Gtk.EntryBuffer = self.textarea.get_buffer()
-            buff.delete_text(cursor_position - 1, -1)
+            buff.delete_text(cursor_position - 1, 1)
             return
 
         if text == "Space":

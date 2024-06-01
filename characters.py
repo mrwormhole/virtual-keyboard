@@ -21,14 +21,23 @@ CHARS: dict[str, list[list[str]]] = {
         ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "*", "-", "← Backspace"],
         ["q", "w", "e", "r", "t", "y", "u", "ı", "o", "p", "ğ", "ü", ","],
         ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ş", "i", "↵ Enter"],
-        ["⇧", "<", "z", "x", "c", "v", "b", "n", "m", "ö", "ç", ".", "Space"],
+        ["⇧", ",", "z", "x", "c", "v", "b", "n", "m", "ö", "ç", ".", "Space"],
     ],
     "TR_": [
         ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "*", "-", "← Backspace"],
-        ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "Ğ", "Ü", ","],
+        ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "Ğ", "Ü", ";"],
         ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Ş", "İ", "↵ Enter"],
-        ["⇧", "<", "Z", "X", "C", "V", "B", "N", "M", "Ö", "Ç", ".", "Space"],
+        ["⇧", ";", "Z", "X", "C", "V", "B", "N", "M", "Ö", "Ç", ":", "Space"],
     ],
 }
 
 ACTIONABLE_CHARS = ["← Backspace", "↵ Enter", "⇧", "Space"]
+
+
+def find_mapped_char(char: str, language: str) -> str:
+    chars: list[list[str]] = CHARS["UK"]
+    for i in range(len(chars)):
+        for j in range(len(chars[i])):
+            if chars[i][j] == char:
+                return CHARS[language][i][j]
+    return ""

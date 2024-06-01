@@ -27,8 +27,13 @@ python ./keyboard.py
 - [X] Design the layout for buttons with label size and color
 - [X] Finish the text area input implementation with Gtk.Entry
 - [X] Add sub-menu to pick target languages
-- [ ] Key Event presses follows target language mapping
-- [ ] Bug fix on grid grow / shrink not adapting the window
+- [X] Key Event presses follows target language mapping
 - [X] Port it to GTK 4
+- [ ] (optional) Tint animation on keyboard pressed/released buttons
 - [ ] (optional) Use multi-line text area input implementation with Gtk.TextView
 - [ ] (optional) Release executable binaries for linux/windows/macosx through GH releases
+
+### Bugs
+
+- [ ] Small Bug fix on grid grow/shrink not adapting the window
+- [ ] Small Bug fix on CTRL+A and CTRL+C and CTRL+V shortcuts
