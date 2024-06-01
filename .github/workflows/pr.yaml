@@ -23,7 +23,7 @@ jobs:
 
     - name: Install GTK deps
       run: |
-        apt install libgirepository1.0-dev -y
+        sudo apt install libgirepository1.0-dev -y
 
     - name: Install Poetry and Ruff
       run: |
