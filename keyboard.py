@@ -1,7 +1,8 @@
 import sys
+from os import path
+import html
 
 import gi
-import html
 
 gi.require_version("Gtk", "4.0")
 from gi.repository import GLib, Gtk, Gdk, Gio
@@ -13,9 +14,10 @@ class KeyboardApp(Gtk.Application):
     def __init__(self):
         super().__init__(application_id="com.mrwormhole.virtual-keyboard")
         GLib.set_application_name("Virtual Keyboard")
+        style_path: str = path.abspath(path.join(path.dirname(__file__), "data", "style.css"))
 
         self.css_provider = Gtk.CssProvider()
-        self.css_provider.load_from_path("style.css")
+        self.css_provider.load_from_path(style_path)
         Gtk.StyleContext.add_provider_for_display(Gdk.Display.get_default(), self.css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
         self.textarea: Gtk.Entry = Gtk.Entry(hexpand=True)  # Multi-line support for "↵ Enter" requires TextView

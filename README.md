@@ -12,14 +12,13 @@ I have been inspired by [this website](https://www.branah.com/) in my trilingual
 
 ### Dependencies
 
-- Python (>=3.12)
+- Python (>=3.11)
 - GTK 4 (you can see what you need to download on [here](https://gnome.pages.gitlab.gnome.org/pygobject/getting_started.html))
 
 Note: please don't do global system installation of python dependencies through pip, poetry can install it safely for you
 
 ```shell
-poetry shell
-poetry install
+poetry shell && poetry install
 python ./keyboard.py
 ```
 
@@ -30,11 +29,8 @@ python ./keyboard.py
 - [X] Add sub-menu to pick target languages
 - [X] Key Event presses follows target language mapping
 - [X] Port it to GTK 4
-- [ ] (optional) Tint animation on keyboard pressed/released buttons
-- [ ] (optional) Use multi-line text area input implementation with Gtk.TextView
-- [ ] (optional) Release executable binaries for linux/windows/macosx through GH releases
-
-### Bugs
-
-- [ ] Small Bug fix on grid grow/shrink not adapting the window
-- [ ] Small Bug fix on CTRL+A and CTRL+C and CTRL+V shortcuts
+- [ ] Release executable binaries for linux/windows through releases
+- [ ] Tint animation on keyboard pressed/released buttons
+- [ ] Use multi-line text area input implementation with Gtk.TextView
+- [ ] Bug fix on grid grow/shrink not adapting the window
+- [ ] Bug fix on CTRL+A and CTRL+C and CTRL+V shortcuts
