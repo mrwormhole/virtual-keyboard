@@ -25,19 +25,17 @@ jobs:
       run: |
         sudo apt install libgirepository1.0-dev -y
 
-    - name: Install Poetry and Ruff
+    - name: Install Poetry and Deps
       run: |
         python -m pip install --upgrade pip
-        pip install poetry ruff
-        poetry --version
-        ruff --version
+        pip install poetry && poetry --version
+        poetry install --with dev
 
     - name: Ruff Format/Lint
       run: |
-        ruff format --check
-        ruff check
+        poetry run ruff format --check
+        poetry run ruff check
 
     - name: Run Pytest
       run: |
-        poetry install --with dev
         poetry run coverage run -m pytest -v && poetry run coverage report -m
