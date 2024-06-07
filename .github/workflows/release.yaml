@@ -31,8 +31,7 @@ jobs:
 
     - name: Install GTK deps
       run: |
-        sudo pacman -Syu
-        sudo pacman -S mingw-w64-ucrt-x86_64-gtk4 mingw-w64-ucrt-x86_64-python3-gobject
+        pacman -S mingw-w64-x86_64-gtk4 mingw-w64-gobject-introspection
 
     - name: Install Poetry and Deps
       run: |
