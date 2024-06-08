@@ -12,22 +12,23 @@ jobs:
     defaults:
       run:
         shell: msys2 {0}
-    strategy:
-      matrix:
-        python-version: ["3.12"]
     steps:
     - name: Git Checkout
       uses: actions/checkout@v4
 
-    - name: Setup Python ${{ matrix.python-version }}
+    - name: Setup Python
       uses: actions/setup-python@v5
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: '3.11'
 
     - name: Set up MSYS2
       uses: msys2/setup-msys2@v2
       with:
         update: true
+
+    - name: Build package
+      run: |
+        python3 --version
 
     - name: Install GTK deps
       run: |
