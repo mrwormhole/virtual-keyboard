@@ -16,28 +16,18 @@ jobs:
     - name: Git Checkout
       uses: actions/checkout@v4
 
-    - name: Setup Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
-
     - name: Set up MSYS2
       uses: msys2/setup-msys2@v2
       with:
         update: true
 
-    - name: Build package
-      run: |
-        python3 --version
-
     - name: Install GTK deps
       run: |
-        pacman -S mingw-w64-ucrt-x86_64-gtk4 mingw-w64-ucrt-x86_64-python3-gobject --noconfirm 
+        pacman -S mingw-w64-ucrt-x86_64-gtk4 mingw-w64-ucrt-x86_64-python3-gobject mingw-w64-ucrt-x86_64-python3 mingw-w64-ucrt-x86_64-python-pip --noconfirm 
 
     - name: Install Poetry and Deps
       run: |
-        python --version
-        python -m pip install --upgrade pip
+        python3 -m pip install --upgrade pip
         pip install poetry && poetry --version
         poetry install --with dev
 
