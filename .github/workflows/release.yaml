@@ -20,6 +20,11 @@ jobs:
           mingw-w64-x86_64-gobject-introspection
           mingw-w64-x86_64-pkg-config
 
+    - name: List 
+      run: |
+        pacman -Ql mingw-w64-x86_64-gobject-introspection
+        echo "------------------------------------"
+
     - uses: actions/setup-python@v5
       with:
         python-version: '3.12'
@@ -27,7 +32,9 @@ jobs:
     - name: Git Checkout
       uses: actions/checkout@v4
 
-    - run: echo "${{ runner.temp }}/msys/msys64/mingw64/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+    - run: |
+        echo "${{ runner.temp }}/msys/msys64/mingw64/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+        echo "${{ runner.temp }}/msys/msys64/mingw64/lib" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
         
     - name: Install Poetry and Deps
       run: |
