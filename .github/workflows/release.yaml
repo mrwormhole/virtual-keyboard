@@ -23,16 +23,24 @@ jobs:
       uses: msys2/setup-msys2@v2
       with:
         update: true
+        install: >-
+          mingw-w64-ucrt-x86_64-gtk4
+          mingw-w64-ucrt-x86_64-python3-gobject
+          mingw-w64-ucrt-x86_64-gobject-introspection
+          mingw-w64-ucrt-x86_64-python
+          mingw-w64-ucrt-x86_64-python-pip
+          
 
-    - name: Install GTK deps 
+    - name: List 
       run: |
-        pacman -S mingw-w64-ucrt-x86_64-gtk4 mingw-w64-ucrt-x86_64-python3-gobject mingw-w64-ucrt-x86_64-gobject-introspection mingw-w64-ucrt-x86_64-python mingw-w64-ucrt-x86_64-python-pip --noconfirm 
+        pacman -Ql mingw-w64-ucrt-x86_64-python-pip
+        echo "------------------------------------"
         pacman -Ql mingw-w64-ucrt-x86_64-python
         
     - name: Install Poetry and Deps
       run: |
-        /usr/bin/python --version
-        /usr/bin/pip install poetry && poetry --version
+        /ucrt64/bin/python3.exe --version
+        /ucrt64/bin/pip.exe install poetry && poetry --version
         poetry install --with dev
 
     - name: Run Pyinstaller
