@@ -12,6 +12,9 @@ jobs:
     steps:
     - name: Git Checkout
       uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
 
     - name: Set up MSYS2
       uses: msys2/setup-msys2@v2
