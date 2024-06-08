@@ -9,18 +9,13 @@ on:
 jobs:
   build-windows:
     runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+
     steps:
     - name: Git Checkout
       uses: actions/checkout@v4
-
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
-
-    - name: check python
-      run: |
-        python --version
 
     - name: Set up MSYS2
       uses: msys2/setup-msys2@v2
@@ -28,12 +23,10 @@ jobs:
         update: true
 
     - name: Install GTK deps
-      shell: msys2 {0}
       run: |
-        pacman -S mingw-w64-ucrt-x86_64-gtk4 mingw-w64-ucrt-x86_64-python3-gobject python3 python3-pip --noconfirm 
+        pacman -S mingw-w64-ucrt-x86_64-gtk4 mingw-w64-ucrt-x86_64-python3-gobject mingw-w64-ucrt-x86_64-python-pip --noconfirm 
 
     - name: Install Poetry and Deps
-      shell: pwsh
       run: |
         python --version
         python -m pip install --upgrade pip
