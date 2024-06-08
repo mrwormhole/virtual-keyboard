@@ -40,8 +40,10 @@ jobs:
     - name: Install Poetry and Deps
       run: |
         /ucrt64/bin/python3.exe --version
-        /ucrt64/bin/pip.exe install poetry && poetry --version
-        poetry install --with dev
+        /ucrt64/bin/pip.exe install poetry 
+        /ucrt64/bin/pip.exe list -v
+        /ucrt64/bin/poetry --version
+        /ucrt64/bin/poetry install --with dev
 
     - name: Run Pyinstaller
       run: |
