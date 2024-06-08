@@ -21,7 +21,7 @@ jobs:
           mingw-w64-x86_64-pkg-config
 
     - name: List
-      shell: mysys2 {0}
+      shell: msys2 {0}
       run: |
         pacman -Ql mingw-w64-x86_64-gobject-introspection
         echo "------------------------------------"
