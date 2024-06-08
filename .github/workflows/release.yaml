@@ -9,16 +9,7 @@ on:
 jobs:
   build-windows:
     runs-on: windows-latest
-    defaults:
-      run:
-        shell: msys2 {0}
     steps:
-    - name: Git Checkout
-      uses: actions/checkout@v4
-    - uses: actions/setup-python@v5
-      with:
-        python-version: '3.12'
-
     - name: Set up MSYS2
       uses: msys2/setup-msys2@v2
       with:
@@ -27,24 +18,24 @@ jobs:
           mingw-w64-x86_64-gtk4
           mingw-w64-x86_64-python3-gobject
           mingw-w64-x86_64-gobject-introspection
-          mingw-w64-x86_64-python
-          mingw-w64-x86_64-python-pip
-          mingw-w64-x86_64-python-poetry
           mingw-w64-x86_64-pkg-config
-          
 
-    - name: List 
-      run: |
-        pacman -Ql mingw-w64-x86_64-python
-        echo "------------------------------------"
-        pacman -Ql mingw-w64-x86_64-python-poetry
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    
+    - name: Git Checkout
+      uses: actions/checkout@v4
+
+    - run: echo "${{ runner.temp }}/msys/msys64/mingw64/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
         
     - name: Install Poetry and Deps
       run: |
-        /mingw64/bin/python3.exe --version
-        /mingw64/bin/pip.exe install poetry 
-        /mingw64/bin/poetry.exe --version
-        /mingw64/bin/poetry.exe install --with dev
+        python --version
+        python -m pip install --upgrade pip
+        pip install poetry 
+        poetry --version
+        poetry install --with dev
 
     - name: Run Pyinstaller
       run: |
