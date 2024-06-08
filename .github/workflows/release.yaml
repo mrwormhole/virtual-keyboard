@@ -24,26 +24,26 @@ jobs:
       with:
         update: true
         install: >-
-          mingw-w64-ucrt-x86_64-gtk4
-          mingw-w64-ucrt-x86_64-python3-gobject
-          mingw-w64-ucrt-x86_64-gobject-introspection
-          mingw-w64-ucrt-x86_64-python
-          mingw-w64-ucrt-x86_64-python-pip
+          mingw-w64-x86_64-gtk4
+          mingw-w64-x86_64-python3-gobject
+          mingw-w64-x86_64-gobject-introspection
+          mingw-w64-x86_64-python
+          mingw-w64-x86_64-python-pip
+          mingw-w64-x86_64-python-poetry
           
 
     - name: List 
       run: |
-        pacman -Ql mingw-w64-ucrt-x86_64-python-pip
+        pacman -Ql mingw-w64-x86_64-python
         echo "------------------------------------"
-        pacman -Ql mingw-w64-ucrt-x86_64-python
+        pacman -Ql mingw-w64-x86_64-python-poetry
         
     - name: Install Poetry and Deps
       run: |
-        /ucrt64/bin/python3.exe --version
-        /ucrt64/bin/pip.exe install poetry 
-        /ucrt64/bin/pip.exe list -v
-        /ucrt64/bin/poetry --version
-        /ucrt64/bin/poetry install --with dev
+        /mingw64/bin/python3.exe --version
+        /mingw64/bin/pip.exe install poetry 
+        /mingw64/bin/poetry.exe --version
+        /mingw64/bin/poetry.exe install --with dev
 
     - name: Run Pyinstaller
       run: |
