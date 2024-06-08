@@ -9,10 +9,6 @@ on:
 jobs:
   build-windows:
     runs-on: windows-latest
-    defaults:
-      run:
-        shell: msys2 {0}
-
     steps:
     - name: Git Checkout
       uses: actions/checkout@v4
@@ -23,8 +19,9 @@ jobs:
         update: true
 
     - name: Install GTK deps
+      shell: msys2 {0}
       run: |
-        pacman -S mingw-w64-ucrt-x86_64-gtk4 mingw-w64-ucrt-x86_64-python3-gobject mingw-w64-ucrt-x86_64-python-pip --noconfirm 
+        pacman -S mingw-w64-ucrt-x86_64-gtk4 mingw-w64-ucrt-x86_64-python3-gobject pacman -S mingw-w64-ucrt-x86_64-gobject-introspection --noconfirm 
 
     - name: Install Poetry and Deps
       run: |
