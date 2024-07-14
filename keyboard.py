@@ -56,6 +56,8 @@ class KeyboardApp(Gtk.Application):
             self.textarea.set_position(cursor_position + 1)
             return True
 
+        # lowercase it first so that UK mappings are used correctly
+        keyval = Gdk.keyval_to_lower(keyval)
         char = chr(Gdk.keyval_to_unicode(keyval))
         mapped_char = find_mapped_char(char, self.current_langauge)
         if mapped_char != "":
@@ -136,8 +138,13 @@ class KeyboardApp(Gtk.Application):
         hamburger_button.set_popover(popover)
         hamburger_button.set_icon_name("open-menu-symbolic")
 
+        quick_copy_button = Gtk.Button()
+        quick_copy_button.connect("clicked", self.on_quick_copy_button_clicked)
+        quick_copy_button.set_icon_name("edit-copy")
+
         # Add menu button to the header bar
         header_bar.pack_start(hamburger_button)
+        header_bar.pack_start(quick_copy_button)
 
         # Vbox to hold textarea and the buttons
         container: Gtk.Box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
@@ -158,7 +165,11 @@ class KeyboardApp(Gtk.Application):
         self.generate_grid_buttons(self.current_langauge)
         self.window.present()
 
-    def on_button_clicked(self, button: Gtk.Button, text: str):
+    def on_quick_copy_button_clicked(self, _: Gtk.Button):
+        clipboard = Gdk.Display.get_default().get_clipboard()
+        clipboard.set(self.textarea.get_text())
+
+    def on_button_clicked(self, _: Gtk.Button, text: str):
         if text == "↵ Enter":
             return
 
