@@ -61,7 +61,3 @@ Life is hard with shared C libraries and Python libc dependent behaviour, I woul
 - [X] Add sub-menu to pick target languages
 - [X] Key Event presses follows target language mapping
 - [X] Port it to GTK 4
-- [ ] Tint animation on keyboard pressed/released buttons
-- [ ] Use multi-line text area input implementation with Gtk.TextView
-- [ ] Bug fix on grid grow/shrink not adapting the window
-- [ ] Bug fix on CTRL+A and CTRL+C and CTRL+V shortcuts
