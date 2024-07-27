@@ -9,7 +9,7 @@ on:
 
 jobs:
   build-linux:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Setup Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
@@ -31,8 +31,7 @@ jobs:
 
     - name: Run Pyinstaller
       run: |
-        CC="gcc -no-pie" python waf configure all
-        poetry run pyinstaller --clean --onefile -w --add-data "data/style.css:./data" --exclude-module=pytest keyboard.py
+        poetry run pyinstaller keyboard.spec
         mv ./dist/keyboard ./dist/keyboard-linux-amd64
 
     - name: Store Dist
