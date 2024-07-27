@@ -31,7 +31,8 @@ jobs:
 
     - name: Run Pyinstaller
       run: |
-        poetry run pyinstaller --clean -w --add-data "data/style.css:./data" --exclude-module=pytest keyboard.py
+        CC="gcc -no-pie" python waf configure all
+        poetry run pyinstaller --clean --onefile -w --add-data "data/style.css:./data" --exclude-module=pytest keyboard.py
         mv ./dist/keyboard ./dist/keyboard-linux-amd64
 
     - name: Store Dist
