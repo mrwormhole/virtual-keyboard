@@ -32,7 +32,9 @@ jobs:
     - name: Run Pyinstaller
       run: |
         poetry run pyinstaller keyboard.spec
-        mv ./dist/keyboard ./dist/keyboard-linux-amd64
+        version=$(ldd --version | head -n 1 | cut -d ' ' -f 4)
+        pyversion=$(python --version 2>&1 | cut -d ' ' -f 2)
+        mv ./dist/keyboard ./dist/virtual-keyboard-py$pyversion-glib$version-x86_64
 
     - name: Store Dist
       uses: actions/upload-artifact@v4

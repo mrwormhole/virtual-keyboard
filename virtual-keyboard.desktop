@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Virtual Keyboard
+GenericName=On-screen Keyboard
+Comment=All-in-one virtual keyboard
+Exec=/usr/local/bin/virtual-keyboard

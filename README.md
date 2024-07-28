@@ -12,7 +12,7 @@ I have been inspired by [this website](https://www.branah.com/) in my trilingual
 
 ### Dependencies
 
-- Python (>=3.11) download [here](https://www.python.org/downloads/)
+- Python (>=3.12) download [here](https://www.python.org/downloads/)
 - GTK (>=4) download [here](https://gnome.pages.gitlab.gnome.org/pygobject/getting_started.html)
 
 Note: please don't do global system installation of python dependencies through pip, poetry can install it safely for you
@@ -28,9 +28,15 @@ Or roll your own binary
 
 ```shell
 poetry shell && poetry install --with dev
-poetry run pyinstaller --clean --onefile -w --add-data "data/style.css:./data" --exclude-module=pytest keyboard.py
+poetry run pyinstaller keyboard.spec
 ./dist/keyboard
 ```
+
+### Linux Binaries
+
+Grab the binary from releases for your OS then rename it to `virtual-keyboard` and move to `/usr/local/bin`
+
+Create the `virtual-keyboard.desktop` in `/usr/share/applications` and copy the contents of the [this desktop file](https://github.com/mrwormhole/virtual-keyboard/blob/main/virtual-keyboard.desktop)
 
 ### FAQs
 
