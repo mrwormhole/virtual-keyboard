@@ -1,0 +1,63 @@
+name: Release
+
+on:
+  push:
+    branches: ["main"]
+    tags:
+      - 'v*'
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Setup Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.12"
+
+    - name: Git Checkout
+      uses: actions/checkout@v4
+
+    - name: Install GTK deps
+      run: |
+        sudo apt install libgirepository1.0-dev gcc libgtk-4-dev -y
+
+    - name: Install Poetry and Deps
+      run: |
+        python -m pip install --upgrade pip
+        pip install poetry && poetry --version
+        poetry install --with dev
+
+    - name: Run Pyinstaller
+      run: |
+        poetry run pyinstaller keyboard.spec
+        version=$(ldd --version | head -n 1 | awk '{print $NF}')
+        pyversion=$(python --version 2>&1 | awk '{print $2}')
+        mv ./dist/keyboard ./dist/virtual-keyboard-py$pyversion-glib$version-x86_64
+
+    - name: Store Dist
+      uses: actions/upload-artifact@v4
+      with:
+        name: linux-dist
+        path: dist/
+
+  github-release:
+    needs: [ build-linux ]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - name: Download Linux Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: linux-dist
+          path: dist/
+
+      - name: Create GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: >-
+          gh release create "${{ github.ref_name }}" dist/**
+          --repo "${{ github.repository }}"
+          --generate-notes
