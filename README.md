@@ -56,10 +56,6 @@ I use GNOME so I wanted to feel the native experience even though I hate every l
 
 No, please use up-to-date software
 
-- Why no binaries through releases?
-
-Life is hard with shared C libraries and Python libc dependent behaviour, I would need custom github actions runner and insane budget to produce binary for every system.
-
 ### TODOs
 
 - [X] Design the layout for buttons with label size and color
