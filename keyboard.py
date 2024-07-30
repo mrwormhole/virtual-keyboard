@@ -84,6 +84,7 @@ class KeyboardApp(Gtk.Application):
 
                 label: Gtk.Label = Gtk.Label()
                 label.set_markup(markup)
+                label.add_css_class("key")
                 button: Gtk.Button = Gtk.Button()
                 button.set_child(label)
                 button.set_can_focus(False)
