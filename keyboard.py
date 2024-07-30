@@ -86,7 +86,7 @@ class KeyboardApp(Gtk.Application):
                 label: Gtk.Label = Gtk.Label()
                 label.set_markup(markup)
                 label.add_css_class("key")
-                if not mapped_char in ACTIONABLE_CHARS:
+                if mapped_char not in ACTIONABLE_CHARS:
                     label.set_halign(Gtk.Align.START)
                 button: Gtk.Button = Gtk.Button()
                 button.set_child(label)
