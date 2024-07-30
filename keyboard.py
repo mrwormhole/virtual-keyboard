@@ -22,7 +22,7 @@ class KeyboardApp(Gtk.Application):
 
         self.textarea: Gtk.Entry = Gtk.Entry(hexpand=True)  # Multi-line support for "↵ Enter" requires TextView
         self.textarea.add_css_class("input-box")
-        self.grid: Gtk.Grid = Gtk.Grid(row_spacing=5, column_spacing=5, focusable=False)
+        self.grid: Gtk.Grid = Gtk.Grid(row_spacing=5, column_spacing=5, focusable=False, column_homogeneous=True)
 
         self.current_langauge: str = "TH"
         self.enabled_shift: bool = False
@@ -80,11 +80,14 @@ class KeyboardApp(Gtk.Application):
                 markup = f"<span foreground='grey' size='125%'>{html.escape(char)}</span>"
                 mapped_char = CHARS[language][i][j]
                 if mapped_char not in ACTIONABLE_CHARS:
-                    markup += f"    <span foreground='#E0115F' size='250%'> {html.escape(mapped_char)}</span>"
+                    # rather than using double tabs, use keybutton.py to set left text and right text
+                    markup += f"\t\t<span foreground='#E0115F' size='250%'>{html.escape(mapped_char)}</span>"
 
                 label: Gtk.Label = Gtk.Label()
                 label.set_markup(markup)
                 label.add_css_class("key")
+                if mapped_char not in ACTIONABLE_CHARS:
+                    label.set_halign(Gtk.Align.START)
                 button: Gtk.Button = Gtk.Button()
                 button.set_child(label)
                 button.set_can_focus(False)
