@@ -6,10 +6,6 @@ I have been inspired by [this website](https://www.branah.com/) in my trilingual
 
 ![screenshot](screenshots/screenshot.png)
 
-![screenshot](screenshots/thai-screenshot.png)
-
-![screenshot](screenshots/turkish-screenshot.png)
-
 ### Dependencies
 
 - Python (>=3.12) download [here](https://www.python.org/downloads/)
@@ -37,7 +33,7 @@ poetry run pyinstaller keyboard.spec
 
 Grab the binary from releases for your OS then rename it to `virtual-keyboard` and move to `/usr/local/bin`
 
-Create the `virtual-keyboard.desktop` in `/usr/share/applications` and copy the contents of the [this desktop file](https://github.com/mrwormhole/virtual-keyboard/blob/main/virtual-keyboard.desktop)
+Create the `virtual-keyboard.desktop` in `/usr/share/applications` and copy the contents of [this desktop file](https://github.com/mrwormhole/virtual-keyboard/blob/main/virtual-keyboard.desktop)
 
 ### FAQs
 

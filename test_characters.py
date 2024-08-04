@@ -1,6 +1,6 @@
 import pytest
 
-from characters import CHARS, find_mapped_char
+from characters import CHARS, find_mapped_char, char_location
 
 
 def test_characters_layout_len():
@@ -26,6 +26,12 @@ def test_find_mapped_char():
     assert find_mapped_char("\\", "TR") == ","
     assert find_mapped_char("'", "TR_") == "İ"
     assert find_mapped_char(".", "TR_") == "Ç"
+
+
+def test_char_location():
+    assert char_location("k") == (2, 7)
+    assert char_location("'") == (2, 10)
+    assert char_location("@") is None
 
 
 if __name__ == "__main__":
