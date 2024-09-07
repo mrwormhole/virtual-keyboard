@@ -165,6 +165,8 @@ class KeyboardApp(Gtk.Application):
             return
 
         cursor_position: int = self.textarea.get_position()
+        if text == BACKSPACE and cursor_position == 0:
+            return
         if text == BACKSPACE and cursor_position != 0:
             buff: Gtk.EntryBuffer = self.textarea.get_buffer()
             buff.delete_text(cursor_position - 1, 1)
