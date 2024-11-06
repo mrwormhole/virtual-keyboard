@@ -43,7 +43,7 @@ Create the `virtual-keyboard.desktop` in `/usr/share/applications` and copy the 
 
 - Do you plan to add more languages?
 
-We can consider as long as we don't break existing languages
+We can consider as long as we don't break existing languages, I will not support chinese or japanese due to the complexity it brings.
 
 - Why Python?
 
