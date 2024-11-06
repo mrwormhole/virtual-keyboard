@@ -1,7 +1,7 @@
 # virtual-keyboard
 
 [![Version](https://img.shields.io/github/tag/mrwormhole/virtual-keyboard.svg)](https://github.com/mrwormhole/virtual-keyboard/tags)
-[![CI Build](https://github.com/mrwormhole/virtual-keyboard/actions/workflows/pr.yaml/badge.svg)](https://github.com/mrwormhole/virtual-keyboard/actions/workflows/pr.yaml)
+[![CI Build](https://github.com/mrwormhole/virtual-keyboard/actions/workflows/tests.yaml/badge.svg)](https://github.com/mrwormhole/virtual-keyboard/actions/workflows/tests.yaml)
 [![License](https://img.shields.io/github/license/mrwormhole/virtual-keyboard)](https://github.com/mrwormhole/virtual-keyboard/blob/main/LICENSE)
 
 I have realized I need some sort of virtual keyboard so that I can type different alphabets faster with UK keyboard layout.
