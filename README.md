@@ -16,20 +16,18 @@ I have been inspired by [this website](https://www.branah.com/) in my trilingual
 - GTK (>=4) download [here](https://gnome.pages.gitlab.gnome.org/pygobject/getting_started.html)
 - Sarabun font download [here](https://fonts.google.com/specimen/Sarabun)
 
-Note: please don't do global system installation of python dependencies through pip, poetry can install it safely for you
-
 Run with python
 
 ```shell
-poetry shell && poetry install
+uv sync
 python ./keyboard.py
 ```
 
 Or roll your own binary
 
 ```shell
-poetry shell && poetry install --with dev
-poetry run pyinstaller keyboard.spec
+uv sync --all-extras --dev
+uv run pyinstaller keyboard.spec
 ./dist/keyboard
 ```
 
@@ -64,3 +62,7 @@ No, please use up-to-date software
 - [X] Add sub-menu to pick target languages
 - [X] Key Event presses follows target language mapping
 - [X] Port it to GTK 4
+
+### References
+
+- [PyGObject Docs](https://amolenaar.pages.gitlab.gnome.org/pygobject-docs/index.html)
