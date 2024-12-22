@@ -1,29 +1,26 @@
-[tool.poetry]
+[project]
 name = "virtual-keyboard"
-version = "0.0.1"
+version = "0.0.5"
 description = "on-screen keyboard to help typing faster internationally"
 authors = ["F. Talha Altinel <talhaaltinel@hotmail.com>"]
 license = "MIT"
 readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pygobject>=3.50.0",
+]
 
-[tool.poetry.dependencies]
-python = ">=3.11,<3.13"
-PyGObject = "^3.46.0"
+[dependency-groups]
+dev = [
+    "coverage>=7.6.9",
+    "pygobject-stubs>=2.12.0",
+    "pyinstaller>=6.11.1",
+    "pytest>=8.3.4",
+    "ruff>=0.8.4",
+]
 
 [tool.ruff]
 line-length = 180
 
 [tool.ruff.lint]
 ignore = ["E402"]
-
-
-[tool.poetry.group.dev.dependencies]
-pygobject-stubs = "^2.10.0"
-pytest = "^8.2.0"
-coverage = "^7.5.3"
-ruff = "^0.4.8"
-pyinstaller = "^6.7.0"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
