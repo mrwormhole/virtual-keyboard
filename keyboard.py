@@ -116,14 +116,19 @@ class KeyboardApp(Gtk.Application):
                 btn: Gtk.Button = KeyButtonDualText(char, mapped_char)
                 if mapped_char in actionable_chars:
                     btn: Gtk.Button = KeyButtonSingleText(mapped_char)
-
                 btn.connect("clicked", self.on_keybutton_clicked, mapped_char)
+
                 if mapped_char == ENTER:
+                    # enlarge the "enter" button
                     self.grid.attach(btn, j, i, 2, 1)
                     continue
                 elif mapped_char == SHIFT:
+                    # adjust the style of "shift" button
                     if self.enabled_shift and not btn.has_css_class("keyboard-activating"):
                         btn.add_css_class("keyboard-activating")
+                    if self.current_langauge.lstrip("_") != language.lstrip("_"):
+                        # switching between languages should toggle off "shift" button
+                        btn.remove_css_class("keyboard-activating")
                 self.grid.attach(btn, j, i, 1, 1)
 
     def change_language(self, action: Gio.SimpleAction, param: GLib.VariantType):
