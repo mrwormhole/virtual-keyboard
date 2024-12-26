@@ -39,29 +39,22 @@ Create the `virtual-keyboard.desktop` in `/usr/share/applications` and copy the 
 
 ### FAQs
 
+- Why is there an error message saying `GskMessage - Failed to realize renderer of type 'GskGLRenderer' for surface 'GdkWaylandToplevel': Failed to create EGL display`?
+
+Just do `GSK_RENDERER=cairo ./binary` if you got the binary from the releases,  you won't have this message if you build the binary manually on your machine.
+
 - Do you plan to add more languages?
 
 We can consider as long as we don't break existing languages, I will not support chinese or japanese due to the complexity it brings.
 
-- Why Python?
-
-Safest way to touch GTK and not become a sociopath even if python binding is not feasible and has no docs. 
-
 - Why GTK?
 
-I use GNOME so I wanted to feel the native experience even though I hate every library GLib ecosystem produce in raw complex macro-maniac C
+I use GNOME so I wanted to feel the native experience.
 
-- Will you support GTK3 or Python 2.7?
+- Will you support GTK3?
 
-No, please use up-to-date software
+No, please use up-to-date software.
 
-### TODOs
-
-- [X] Design the layout for buttons with label size and color
-- [X] Finish the text area input implementation with Gtk.Entry
-- [X] Add sub-menu to pick target languages
-- [X] Key Event presses follows target language mapping
-- [X] Port it to GTK 4
 
 ### References
 

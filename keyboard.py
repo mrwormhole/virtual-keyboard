@@ -246,5 +246,8 @@ class KeyboardApp(Gtk.Application):
 
 if __name__ == "__main__":
     app: KeyboardApp = KeyboardApp()
-    exit_status: int = app.run(sys.argv)
-    sys.exit(exit_status)
+    try:
+        exit_status = app.run(sys.argv)
+        sys.exit(exit_status)
+    except KeyboardInterrupt:
+        sys.exit(0)
