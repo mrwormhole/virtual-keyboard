@@ -1,6 +1,5 @@
 import sys
 from os import path
-import html
 
 import gi
 
@@ -8,6 +7,7 @@ gi.require_version("Gtk", "4.0")
 from gi.repository import GLib, Gtk, Gdk, Gio
 
 from characters import CHARS, find_mapped_char, char_location, BACKSPACE, ENTER, SHIFT, SPACE
+from keybutton import KeyButtonSingleText, KeyButtonDualText
 
 
 class KeyboardApp(Gtk.Application):
@@ -111,30 +111,20 @@ class KeyboardApp(Gtk.Application):
                 if widget is not None:
                     self.grid.remove(widget)
 
-                char = default_chars[i][j]
-                markup = f"<span foreground='grey' size='125%'>{html.escape(char)}</span>"
-                mapped_char = CHARS[language][i][j]
-                ACTIONABLE_CHARS = [BACKSPACE, ENTER, SHIFT, SPACE]
-                if mapped_char not in ACTIONABLE_CHARS:
-                    # rather than using double tabs, use keybutton.py to set left text and right text
-                    markup += f"\t\t<span foreground='#E0115F' size='250%'>{html.escape(mapped_char)}</span>"
+                char, mapped_char = default_chars[i][j], CHARS[language][i][j]
+                actionable_chars = [BACKSPACE, ENTER, SHIFT, SPACE]
+                btn: Gtk.Button = KeyButtonDualText(char, mapped_char)
+                if mapped_char in actionable_chars:
+                    btn: Gtk.Button = KeyButtonSingleText(mapped_char)
 
-                label: Gtk.Label = Gtk.Label()
-                label.set_markup(markup)
-                label.add_css_class("key")
-                if mapped_char not in ACTIONABLE_CHARS:
-                    label.set_halign(Gtk.Align.START)
-                keybutton: Gtk.Button = Gtk.Button()
-                keybutton.set_child(label)
-                keybutton.set_can_focus(False)
-                keybutton.connect("clicked", self.on_keybutton_clicked, mapped_char)
+                btn.connect("clicked", self.on_keybutton_clicked, mapped_char)
                 if mapped_char == ENTER:
-                    self.grid.attach(keybutton, j, i, 2, 1)
+                    self.grid.attach(btn, j, i, 2, 1)
                     continue
                 elif mapped_char == SHIFT:
-                    if self.enabled_shift and not keybutton.has_css_class("keyboard-activating"):
-                        keybutton.add_css_class("keyboard-activating")
-                self.grid.attach(keybutton, j, i, 1, 1)
+                    if self.enabled_shift and not btn.has_css_class("keyboard-activating"):
+                        btn.add_css_class("keyboard-activating")
+                self.grid.attach(btn, j, i, 1, 1)
 
     def change_language(self, action: Gio.SimpleAction, param: GLib.VariantType):
         action_name: str = action.get_name()
