@@ -209,10 +209,12 @@ class KeyboardApp(Gtk.Application):
         hamburger_button.set_popover(popover)
         hamburger_button.set_icon_name("open-menu-symbolic")
 
+        # Quick copy button
         quick_copy_button = Gtk.Button(focusable=False)
         quick_copy_button.connect("clicked", self.on_quick_copy_button_clicked)
         quick_copy_button.set_icon_name("edit-copy")
 
+        # Quick delete button
         quick_delete_button = Gtk.Button(focusable=False)
         quick_delete_button.connect("clicked", self.on_quick_delete_button_clicked)
         quick_delete_button.set_icon_name("edit-delete")
