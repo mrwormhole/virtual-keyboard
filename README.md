@@ -47,6 +47,10 @@ Just do `GSK_RENDERER=cairo ./binary` if you got the binary from the releases,  
 
 We can consider as long as we don't break existing languages, I will not support chinese or japanese due to the complexity it brings.
 
+- Do you plan to add support for Windows or Macos?
+
+Absolutely no for Macos, maybe for Windows. On windows, you can still run the binary through WSL(windows subsystem for linux). I have tested locally with WSL, it works on Windows with WSL but windows support and CI are gonna cost me time/money so I am not willing to put time/money for it for now.
+
 - Why GTK?
 
 I use GNOME so I wanted to feel the native experience.
