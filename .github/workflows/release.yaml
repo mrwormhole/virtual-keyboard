@@ -12,7 +12,7 @@ jobs:
     - name: Setup Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:
-        python-version: "3.12"
+        python-version: "3.13"
 
     - name: Git Checkout
       uses: actions/checkout@v4
@@ -20,7 +20,7 @@ jobs:
     - name: Install GTK deps
       run: |
         sudo apt update
-        sudo apt install libgirepository-2.0-dev libcairo2-dev gir1.2-gtk-4.0 -y
+        sudo apt install libgirepository-1.0-dev libcairo2-dev gir1.2-gtk-4.0 -y
 
     - name: Install uv
       uses: astral-sh/setup-uv@v4
