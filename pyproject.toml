@@ -5,18 +5,18 @@ description = "on-screen keyboard to help typing faster internationally"
 authors = ["F. Talha Altinel <talhaaltinel@hotmail.com>"]
 license = "MIT"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.13"
 dependencies = [
     "pygobject>=3.50.0",
 ]
 
 [dependency-groups]
 dev = [
-    "coverage>=7.6.9",
+    "coverage>=7.6.12",
     "pygobject-stubs>=2.12.0",
-    "pyinstaller>=6.11.1",
+    "pyinstaller>=6.12.0",
     "pytest>=8.3.4",
-    "ruff>=0.8.4",
+    "ruff>=0.9.6",
 ]
 
 [tool.ruff]
