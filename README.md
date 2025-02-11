@@ -12,7 +12,7 @@ I have been inspired by [this website](https://www.branah.com/) in my trilingual
 
 ### Dependencies
 
-- Python (>=3.12) download [here](https://www.python.org/downloads/)
+- Python (>=3.13) download [here](https://www.python.org/downloads/)
 - GTK (>=4) download [here](https://pygobject.gnome.org/getting_started.html)
 - Sarabun font download [here](https://fonts.google.com/specimen/Sarabun)
 
@@ -33,9 +33,15 @@ uv run pyinstaller keyboard.spec
 
 ### Linux Binaries
 
-Grab the binary from releases for your OS then rename it to `virtual-keyboard` and move to `/usr/local/bin`
+Run the command below after understanding what it does
 
-Create the `virtual-keyboard.desktop` in `/usr/share/applications` and copy the contents of [this desktop file](https://github.com/mrwormhole/virtual-keyboard/blob/main/virtual-keyboard.desktop)
+```shell
+VERSION="1.0.1" PYVERSION="3.12.8" GLIBVERSION="2.39"; curl -L "https://github.com/mrwormhole/virtual-keyboard/releases/download/v${VERSION}/virtual-keyboard-py${PYVERSION}-glib${GLIBVERSION}-x86_64" -o virtual-keyboard-test && sudo mv virtual-keyboard-test /usr/local/bin/ && sudo chmod +x /usr/local/bin/virtual-keyboard-test && sudo curl -o /usr/share/applications/virtual-keyboard-test.desktop "https://raw.githubusercontent.com/mrwormhole/virtual-keyboard/main/virtual-keyboard.desktop
+```
+
+Please set the VERSION, PYVERSION and GLIBVERSION above, it will grab the binary from releases for you then rename it to `virtual-keyboard` and move to `/usr/local/bin`
+
+Then will put the `virtual-keyboard.desktop` in `/usr/share/applications` and copy the contents of [this desktop file](https://github.com/mrwormhole/virtual-keyboard/blob/main/virtual-keyboard.desktop)
 
 ### FAQs
 
