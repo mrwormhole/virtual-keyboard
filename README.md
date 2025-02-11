@@ -13,7 +13,7 @@ I have been inspired by [this website](https://www.branah.com/) in my trilingual
 ### Dependencies
 
 - Python (>=3.12) download [here](https://www.python.org/downloads/)
-- GTK (>=4) download [here](https://gnome.pages.gitlab.gnome.org/pygobject/getting_started.html)
+- GTK (>=4) download [here](https://pygobject.gnome.org/getting_started.html)
 - Sarabun font download [here](https://fonts.google.com/specimen/Sarabun)
 
 Run with python
@@ -62,4 +62,4 @@ No, please use up-to-date software.
 
 ### References
 
-- [PyGObject Docs](https://amolenaar.pages.gitlab.gnome.org/pygobject-docs/index.html)
+- [PyGObject Docs](https://api.pygobject.gnome.org/)
